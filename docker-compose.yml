@@ -1,0 +1,21 @@
+version: '2'
+
+services:
+  website:
+    container_name: django-simple-project-persisted-web
+    build: .
+    ports:
+      - '8000:80'
+    volumes:
+      - ./project:/srv/project
+    environment:
+      ENV: dev
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      REDIS_DB_NUM: 0
+
+  redis:
+    container_name: django-simple-project-persisted-redis
+    image: redis:latest
+    volumes:
+      - ./volumes/redis:/data
